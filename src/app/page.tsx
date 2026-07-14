@@ -229,10 +229,10 @@ export default function Home() {
             <div>
               <h4 className="text-white font-semibold mb-4">Tentang</h4>
               <ul className="space-y-2">
-                <li><span className="text-gray-400 text-sm">Tentang Kami</span></li>
-                <li><span className="text-gray-400 text-sm">Syarat & Ketentuan</span></li>
-                <li><span className="text-gray-400 text-sm">Kebijakan Privasi</span></li>
-                <li><span className="text-gray-400 text-sm">Kontak</span></li>
+                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">Tentang Kami</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">Syarat & Ketentuan</Link></li>
+                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">Kebijakan Privasi</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">Kontak</Link></li>
               </ul>
             </div>
           </div>
