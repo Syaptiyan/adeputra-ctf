@@ -66,7 +66,7 @@ export default function ChallengeDetail() {
     }
 
     if (cooldown > 0) {
-      setMessage({ type: 'error', text: `Wait ${cooldown} seconds before trying again` })
+      setMessage({ type: 'error', text: `Tunggu ${cooldown} detik lagi` })
       setSubmitting(false)
       return
     }
@@ -87,7 +87,9 @@ export default function ChallengeDetail() {
         setSolved(true)
       } else {
         setMessage({ type: 'error', text: result.message })
-        setCooldown(5)
+        // Use server-side cooldown if available, otherwise client-side
+        const cooldownTime = result.seconds_left || 5
+        setCooldown(cooldownTime)
       }
     }
     setSubmitting(false)

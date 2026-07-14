@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-07-14
+
+### Fixed
+- Remove non-functional "Remember Me" checkbox dari login
+- Fix N+1 query di leaderboard (optimasi dari 51 query ke 2 query)
+- Fix OAuth redirect URL validation (prevent open redirect)
+- Fix server-side rate limiting pada flag submission
+
+### Changed
+- Rate limiting sekarang server-side (5 detik cooldown per challenge per user)
+- Leaderboard query dioptimasi dengan batch fetch solves
+
+### Security
+- Server-side rate limiting pada check_flag RPC
+- OAuth redirect URL validation (hanya allow relative paths)
+
 ## [1.2.0] - 2026-07-14
 
 ### Added

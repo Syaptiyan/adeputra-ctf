@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import HashRedirect from '@/components/HashRedirect'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="dark">
       <body className={`${inter.className} bg-gray-950 text-white min-h-screen antialiased`}>
+        <HashRedirect />
         <Navbar />
         <main>
           {children}

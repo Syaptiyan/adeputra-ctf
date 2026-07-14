@@ -13,27 +13,35 @@ export default function Leaderboard() {
   }, [])
 
   const fetchLeaderboard = async () => {
+    // Get users with their scores
     const { data: users } = await supabase
       .from('users')
       .select('id, username, score')
       .order('score', { ascending: false })
       .limit(50)
 
-    if (users) {
-      const entries: LeaderboardEntry[] = []
-      
-      for (const user of users) {
-        const { count } = await supabase
-          .from('solves')
-          .select('*', { count: 'exact', head: true })
-          .eq('user_id', user.id)
+    if (users && users.length > 0) {
+      // Get all solves in one query
+      const userIds = users.map(u => u.id)
+      const { data: solves } = await supabase
+        .from('solves')
+        .select('user_id')
+        .in('user_id', userIds)
 
-        entries.push({
-          username: user.username,
-          score: user.score || 0,
-          solves: count || 0,
+      // Count solves per user
+      const solveCounts: Record<string, number> = {}
+      if (solves) {
+        solves.forEach(solve => {
+          solveCounts[solve.user_id] = (solveCounts[solve.user_id] || 0) + 1
         })
       }
+
+      // Build leaderboard entries
+      const entries: LeaderboardEntry[] = users.map(user => ({
+        username: user.username,
+        score: user.score || 0,
+        solves: solveCounts[user.id] || 0,
+      }))
 
       setLeaderboard(entries)
     }

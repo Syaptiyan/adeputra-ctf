@@ -11,7 +11,6 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirect = searchParams.get('redirect') || '/challenges'
@@ -63,10 +62,12 @@ function LoginForm() {
 
   const handleOAuthLogin = async (provider: 'google' | 'github') => {
     setLoading(true)
+    // Validate redirect to prevent open redirect
+    const safeRedirect = redirect.startsWith('/') ? redirect : '/challenges'
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}${redirect}`,
+        redirectTo: `${window.location.origin}${safeRedirect}`,
       },
     })
     if (error) {
@@ -194,19 +195,6 @@ function LoginForm() {
                   )}
                 </button>
               </div>
-            </div>
-
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 text-orange-500 bg-gray-800 border-gray-700 rounded focus:ring-orange-500 focus:ring-2"
-              />
-              <label htmlFor="remember-me" className="ml-2 text-sm text-gray-400">
-                Ingat saya selama 30 hari
-              </label>
             </div>
 
             <button
