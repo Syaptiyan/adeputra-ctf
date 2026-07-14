@@ -17,6 +17,8 @@ Platform Capture The Flag (CTF) Indonesia untuk belajar keamanan siber secara in
 - 🌙 **Dark Mode** - UI modern dan responsif
 - 📱 **Mobile Friendly** - Bisa diakses dari HP
 - 🇮🇩 **Bahasa Indonesia** - Semua UI menggunakan Bahasa Indonesia
+- 📖 **Walkthrough** - Tutorial lengkap cara menyelesaikan setiap tantangan
+- 📁 **Challenge Files** - File tantangan bisa didownload dari GitHub
 
 ## Kategori Tantangan
 
@@ -144,6 +146,26 @@ npm run build
 # Start
 npm start
 ```
+
+## Challenge Files
+
+File tantangan bisa didownload dari folder `/challenge-files/`:
+
+| File | Challenge | Link |
+|------|-----------|------|
+| pesawat_kertas.txt | Pesawat Kertas | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/pesawat_kertas.txt) |
+| suspect_photo.png | Jejak Digital | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/suspect_photo.png) |
+| xor_encrypted.txt | XOR Rahasia | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/xor_encrypted.txt) |
+| caesar_cipher.txt | Pesan dalam Botol | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/caesar_cipher.txt) |
+| time_machine.pyc | Mesin Waktu | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/time_machine.pyc) |
+| secret.bin | File Rahasia | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/secret.bin) |
+| blind_sqli_simulator.html | SQL Injection Blind | [Download](https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/blind_sqli_simulator.html) |
+
+## Walkthrough
+
+Tutorial lengkap cara menyelesaikan setiap tantangan bisa diakses di:
+- **URL:** [adeputractf.vercel.app/walkthrough](https://adeputractf.vercel.app/walkthrough)
+- **Folder:** `/walkthrough/` (source code)
 
 ## Peran Pengguna
 
