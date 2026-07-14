@@ -90,52 +90,52 @@ export default function Leaderboard() {
 
       {/* Top 3 Podium */}
       {getTopThree().length >= 3 && (
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-10">
           {/* 2nd Place */}
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 text-center mt-8">
-            <div className="text-5xl mb-3">🥈</div>
-            <div className="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-xl flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl md:rounded-2xl p-3 md:p-6 text-center mt-6 md:mt-8">
+            <div className="text-3xl md:text-5xl mb-2 md:mb-3">🥈</div>
+            <div className="w-10 h-10 md:w-16 md:h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg md:rounded-xl flex items-center justify-center text-lg md:text-2xl font-bold text-white mx-auto mb-2 md:mb-3">
               {getTopThree()[1].username.charAt(0).toUpperCase()}
             </div>
-            <Link href={`/profile/${getTopThree()[1].id}`} className="font-bold text-white hover:text-orange-400 transition-colors">
+            <Link href={`/profile/${getTopThree()[1].id}`} className="font-bold text-white hover:text-orange-400 transition-colors text-xs md:text-base truncate block">
               {getTopThree()[1].username}
             </Link>
-            <div className="text-2xl font-bold text-orange-500 mt-2">{getTopThree()[1].score}</div>
-            <div className="text-gray-500 text-sm">{getTopThree()[1].solves} solved</div>
+            <div className="text-lg md:text-2xl font-bold text-orange-500 mt-1 md:mt-2">{getTopThree()[1].score}</div>
+            <div className="text-gray-500 text-xs md:text-sm">{getTopThree()[1].solves} solved</div>
             {currentUser === getTopThree()[1].id && (
-              <span className="inline-block mt-2 text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded">Kamu</span>
+              <span className="inline-block mt-1 md:mt-2 text-[10px] md:text-xs bg-orange-500/20 text-orange-400 px-1.5 md:px-2 py-0.5 md:py-1 rounded">Kamu</span>
             )}
           </div>
 
           {/* 1st Place */}
-          <div className="bg-gradient-to-b from-yellow-500/10 to-gray-900 border border-yellow-500/30 rounded-2xl p-6 text-center">
-            <div className="text-6xl mb-3">🥇</div>
-            <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center text-3xl font-bold text-white mx-auto mb-3 shadow-lg shadow-yellow-500/25">
+          <div className="bg-gradient-to-b from-yellow-500/10 to-gray-900 border border-yellow-500/30 rounded-xl md:rounded-2xl p-3 md:p-6 text-center">
+            <div className="text-4xl md:text-6xl mb-2 md:mb-3">🥇</div>
+            <div className="w-12 h-12 md:w-20 md:h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg md:rounded-xl flex items-center justify-center text-xl md:text-3xl font-bold text-white mx-auto mb-2 md:mb-3 shadow-lg shadow-yellow-500/25">
               {getTopThree()[0].username.charAt(0).toUpperCase()}
             </div>
-            <Link href={`/profile/${getTopThree()[0].id}`} className="font-bold text-white hover:text-orange-400 transition-colors text-lg">
+            <Link href={`/profile/${getTopThree()[0].id}`} className="font-bold text-white hover:text-orange-400 transition-colors text-xs md:text-lg truncate block">
               {getTopThree()[0].username}
             </Link>
-            <div className="text-3xl font-bold text-yellow-500 mt-2">{getTopThree()[0].score}</div>
-            <div className="text-gray-500 text-sm">{getTopThree()[0].solves} solved</div>
+            <div className="text-xl md:text-3xl font-bold text-yellow-500 mt-1 md:mt-2">{getTopThree()[0].score}</div>
+            <div className="text-gray-500 text-xs md:text-sm">{getTopThree()[0].solves} solved</div>
             {currentUser === getTopThree()[0].id && (
-              <span className="inline-block mt-2 text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded">Kamu</span>
+              <span className="inline-block mt-1 md:mt-2 text-[10px] md:text-xs bg-orange-500/20 text-orange-400 px-1.5 md:px-2 py-0.5 md:py-1 rounded">Kamu</span>
             )}
           </div>
 
           {/* 3rd Place */}
-          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 text-center mt-12">
-            <div className="text-5xl mb-3">🥉</div>
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl flex items-center justify-center text-2xl font-bold text-white mx-auto mb-3">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl md:rounded-2xl p-3 md:p-6 text-center mt-8 md:mt-12">
+            <div className="text-3xl md:text-5xl mb-2 md:mb-3">🥉</div>
+            <div className="w-10 h-10 md:w-16 md:h-16 bg-gradient-to-br from-orange-600 to-orange-700 rounded-lg md:rounded-xl flex items-center justify-center text-lg md:text-2xl font-bold text-white mx-auto mb-2 md:mb-3">
               {getTopThree()[2].username.charAt(0).toUpperCase()}
             </div>
-            <Link href={`/profile/${getTopThree()[2].id}`} className="font-bold text-white hover:text-orange-400 transition-colors">
+            <Link href={`/profile/${getTopThree()[2].id}`} className="font-bold text-white hover:text-orange-400 transition-colors text-xs md:text-base truncate block">
               {getTopThree()[2].username}
             </Link>
-            <div className="text-2xl font-bold text-orange-500 mt-2">{getTopThree()[2].score}</div>
-            <div className="text-gray-500 text-sm">{getTopThree()[2].solves} solved</div>
+            <div className="text-lg md:text-2xl font-bold text-orange-500 mt-1 md:mt-2">{getTopThree()[2].score}</div>
+            <div className="text-gray-500 text-xs md:text-sm">{getTopThree()[2].solves} solved</div>
             {currentUser === getTopThree()[2].id && (
-              <span className="inline-block mt-2 text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded">Kamu</span>
+              <span className="inline-block mt-1 md:mt-2 text-[10px] md:text-xs bg-orange-500/20 text-orange-400 px-1.5 md:px-2 py-0.5 md:py-1 rounded">Kamu</span>
             )}
           </div>
         </div>
@@ -144,7 +144,8 @@ export default function Leaderboard() {
       {/* Rest of Leaderboard */}
       {getRest().length > 0 && (
         <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-12 gap-4 px-6 py-3 bg-gray-800/50 text-sm font-semibold text-gray-400">
+          {/* Desktop Header */}
+          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-800/50 text-sm font-semibold text-gray-400">
             <div className="col-span-1">Rank</div>
             <div className="col-span-5">Pemain</div>
             <div className="col-span-3 text-right">Poin</div>
@@ -158,33 +159,60 @@ export default function Leaderboard() {
             return (
               <div
                 key={entry.id}
-                className={`grid grid-cols-12 gap-4 px-6 py-4 border-t border-gray-800 hover:bg-gray-800/30 transition-colors ${
+                className={`px-4 md:px-6 py-3 md:py-4 border-t border-gray-800 hover:bg-gray-800/30 transition-colors ${
                   isCurrentUser ? 'bg-orange-500/5' : ''
                 }`}
               >
-                <div className="col-span-1 flex items-center">
-                  <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${rankBadge.bg} border`}>
-                    {rankBadge.emoji}
-                  </span>
-                </div>
-                <div className="col-span-5 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-sm font-bold text-gray-300">
-                    {entry.username.charAt(0).toUpperCase()}
+                {/* Mobile Layout */}
+                <div className="md:hidden flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold ${rankBadge.bg} border`}>
+                      {rankBadge.emoji}
+                    </span>
+                    <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-sm font-bold text-gray-300">
+                      {entry.username.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <Link href={`/profile/${entry.id}`} className="font-medium text-white hover:text-orange-400 transition-colors text-sm">
+                        {entry.username}
+                      </Link>
+                      {isCurrentUser && (
+                        <span className="ml-1 text-[10px] bg-orange-500/20 text-orange-400 px-1 py-0.5 rounded">Kamu</span>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <Link href={`/profile/${entry.id}`} className="font-medium text-white hover:text-orange-400 transition-colors">
-                      {entry.username}
-                    </Link>
-                    {isCurrentUser && (
-                      <span className="ml-2 text-xs bg-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded">Kamu</span>
-                    )}
+                  <div className="text-right">
+                    <div className="font-bold text-orange-500 text-sm">{entry.score} pts</div>
+                    <div className="text-gray-500 text-xs">{entry.solves} solved</div>
                   </div>
                 </div>
-                <div className="col-span-3 flex items-center justify-end">
-                  <span className="font-bold text-orange-500">{entry.score}</span>
-                </div>
-                <div className="col-span-3 flex items-center justify-end">
-                  <span className="text-gray-400">{entry.solves}</span>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:grid grid-cols-12 gap-4">
+                  <div className="col-span-1 flex items-center">
+                    <span className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${rankBadge.bg} border`}>
+                      {rankBadge.emoji}
+                    </span>
+                  </div>
+                  <div className="col-span-5 flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-sm font-bold text-gray-300">
+                      {entry.username.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <Link href={`/profile/${entry.id}`} className="font-medium text-white hover:text-orange-400 transition-colors">
+                        {entry.username}
+                      </Link>
+                      {isCurrentUser && (
+                        <span className="ml-2 text-xs bg-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded">Kamu</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-span-3 flex items-center justify-end">
+                    <span className="font-bold text-orange-500">{entry.score}</span>
+                  </div>
+                  <div className="col-span-3 flex items-center justify-end">
+                    <span className="text-gray-400">{entry.solves}</span>
+                  </div>
                 </div>
               </div>
             )

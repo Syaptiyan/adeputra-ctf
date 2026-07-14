@@ -135,25 +135,25 @@ export default function Profile() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Profile Header */}
-      <div className="bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-8">
+      <div className="bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 rounded-2xl p-6 md:p-8">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           {/* Avatar */}
-          <div className="relative">
-            <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl font-bold text-white shadow-lg shadow-orange-500/25">
+          <div className="relative flex-shrink-0">
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-3xl md:text-4xl font-bold text-white shadow-lg shadow-orange-500/25">
               {profile?.username?.charAt(0)?.toUpperCase() || '?'}
             </div>
             {profile?.role === 'admin' && (
-              <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-lg">
+              <div className="absolute -top-2 -right-2 bg-yellow-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg">
                 ADMIN
               </div>
             )}
           </div>
 
           {/* Info */}
-          <div className="text-center md:text-left flex-1">
-            <h1 className="text-3xl font-bold text-white">{profile?.username || 'Unknown'}</h1>
-            <p className="text-gray-400 mt-1">{user?.email}</p>
-            <p className="text-sm text-gray-500 mt-2">
+          <div className="text-center md:text-left flex-1 min-w-0">
+            <h1 className="text-2xl md:text-3xl font-bold text-white truncate">{profile?.username || 'Unknown'}</h1>
+            <p className="text-gray-400 mt-1 text-sm md:text-base truncate">{user?.email}</p>
+            <p className="text-xs md:text-sm text-gray-500 mt-2">
               Bergabung {profile?.created_at ? new Date(profile.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-'}
             </p>
           </div>
@@ -161,7 +161,7 @@ export default function Profile() {
           {/* Edit Button */}
           <Link
             href="/change-email"
-            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition-colors"
+            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm transition-colors flex-shrink-0"
           >
             Edit Profil
           </Link>
