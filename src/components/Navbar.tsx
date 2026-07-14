@@ -47,27 +47,27 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-6">
             <Link href="/challenges" className="text-gray-300 hover:text-white transition-colors">
-              Challenges
+              Tantangan
             </Link>
             <Link href="/leaderboard" className="text-gray-300 hover:text-white transition-colors">
-              Leaderboard
+              Papan Peringkat
             </Link>
             {user ? (
               <>
                 <Link href="/profile" className="text-gray-300 hover:text-white transition-colors">
-                  {username || 'Profile'}
+                  {username || 'Profil'}
                 </Link>
                 <button onClick={handleLogout} className="btn-secondary text-sm">
-                  Logout
+                  Keluar
                 </button>
               </>
             ) : (
               <>
                 <Link href="/login" className="text-gray-300 hover:text-white transition-colors">
-                  Login
+                  Masuk
                 </Link>
                 <Link href="/register" className="btn-primary text-sm">
-                  Register
+                  Daftar
                 </Link>
               </>
             )}
@@ -90,27 +90,27 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden py-4 space-y-3">
             <Link href="/challenges" className="block text-gray-300 hover:text-white">
-              Challenges
+              Tantangan
             </Link>
             <Link href="/leaderboard" className="block text-gray-300 hover:text-white">
-              Leaderboard
+              Papan Peringkat
             </Link>
             {user ? (
               <>
                 <Link href="/profile" className="block text-gray-300 hover:text-white">
-                  {username || 'Profile'}
+                  {username || 'Profil'}
                 </Link>
                 <button onClick={handleLogout} className="block text-gray-300 hover:text-white">
-                  Logout
+                  Keluar
                 </button>
               </>
             ) : (
               <>
                 <Link href="/login" className="block text-gray-300 hover:text-white">
-                  Login
+                  Masuk
                 </Link>
                 <Link href="/register" className="block text-gray-300 hover:text-white">
-                  Register
+                  Daftar
                 </Link>
               </>
             )}
