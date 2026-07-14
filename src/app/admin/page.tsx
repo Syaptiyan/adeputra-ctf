@@ -26,13 +26,12 @@ export default function Admin() {
 
     setUser(user)
 
-    const { data: profile } = await supabase
-      .from('users')
-      .select('role')
-      .eq('id', user.id)
-      .single()
+    // Server-side admin check via RPC
+    const { data: adminStatus, error } = await supabase.rpc('is_admin', {
+      p_user_id: user.id
+    })
 
-    if (profile?.role !== 'admin') {
+    if (error || !adminStatus) {
       router.push('/')
       return
     }
@@ -44,7 +43,7 @@ export default function Admin() {
   const fetchChallenges = async () => {
     const { data } = await supabase
       .from('challenges')
-      .select('*')
+      .select('id, title, category, difficulty, points, is_active, created_at')
       .order('created_at', { ascending: false })
 
     if (data) {

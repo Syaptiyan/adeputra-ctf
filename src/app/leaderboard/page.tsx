@@ -15,7 +15,7 @@ export default function Leaderboard() {
   const fetchLeaderboard = async () => {
     const { data: users } = await supabase
       .from('users')
-      .select('username, score')
+      .select('id, username, score')
       .order('score', { ascending: false })
       .limit(50)
 
@@ -26,7 +26,7 @@ export default function Leaderboard() {
         const { count } = await supabase
           .from('solves')
           .select('*', { count: 'exact', head: true })
-          .eq('user_id', user.username)
+          .eq('user_id', user.id)
 
         entries.push({
           username: user.username,

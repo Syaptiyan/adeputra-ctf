@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function Login() {
+function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -13,14 +13,16 @@ export default function Login() {
   const [error, setError] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get('redirect') || '/challenges'
 
   useEffect(() => {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
-      if (user) router.push('/challenges')
+      if (user) router.push(redirect)
     }
     checkUser()
-  }, [router])
+  }, [router, redirect])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,24 +44,18 @@ export default function Login() {
       if (error.message.includes('Invalid login credentials')) {
         setError('Email atau password salah')
       } else if (error.message.includes('Email not confirmed')) {
-        // Sign in to get user data, then redirect to unverified page
-        await supabase.auth.signInWithPassword({
-          email: email.trim().toLowerCase(),
-          password,
-        })
         router.push('/unverified')
         return
       } else {
         setError(error.message)
       }
     } else {
-      // Check if email is verified
       const { data: { user } } = await supabase.auth.getUser()
       if (user && !user.email_confirmed_at) {
         router.push('/unverified')
         return
       }
-      router.push('/challenges')
+      router.push(redirect)
       router.refresh()
     }
     setLoading(false)
@@ -70,7 +66,7 @@ export default function Login() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/challenges`,
+        redirectTo: `${window.location.origin}${redirect}`,
       },
     })
     if (error) {
@@ -249,5 +245,13 @@ export default function Login() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   )
 }

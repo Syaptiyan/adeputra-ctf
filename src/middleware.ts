@@ -47,11 +47,14 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Protected routes that require email verification
-  const protectedPaths = ['/challenges', '/leaderboard', '/profile', '/admin']
+  // Protected routes that require authentication
+  const protectedPaths = ['/challenges', '/leaderboard', '/profile']
   const isProtectedPath = protectedPaths.some(path => 
     request.nextUrl.pathname.startsWith(path)
   )
+
+  // Admin routes - require admin role
+  const isAdminPath = request.nextUrl.pathname.startsWith('/admin')
 
   if (isProtectedPath) {
     // Redirect to login if not authenticated
@@ -66,6 +69,34 @@ export async function middleware(request: NextRequest) {
     if (!user.email_confirmed_at) {
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/unverified'
+      return NextResponse.redirect(redirectUrl)
+    }
+  }
+
+  if (isAdminPath) {
+    // Redirect to login if not authenticated
+    if (!user) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/login'
+      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    // Check if email is verified
+    if (!user.email_confirmed_at) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/unverified'
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    // Check admin role using RPC
+    const { data: isAdmin, error } = await supabase.rpc('is_admin', {
+      p_user_id: user.id
+    })
+
+    if (error || !isAdmin) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/'
       return NextResponse.redirect(redirectUrl)
     }
   }
@@ -88,6 +119,7 @@ export const config = {
     '/leaderboard/:path*',
     '/profile/:path*',
     '/admin/:path*',
+    '/change-email',
     '/login',
     '/register',
   ],

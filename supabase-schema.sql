@@ -46,6 +46,15 @@ CREATE TABLE IF NOT EXISTS solves (
   UNIQUE(user_id, challenge_id)
 );
 
+-- Performance indexes
+CREATE INDEX IF NOT EXISTS idx_submissions_user_id ON submissions(user_id);
+CREATE INDEX IF NOT EXISTS idx_submissions_challenge_id ON submissions(challenge_id);
+CREATE INDEX IF NOT EXISTS idx_solves_user_id ON solves(user_id);
+CREATE INDEX IF NOT EXISTS idx_solves_challenge_id ON solves(challenge_id);
+CREATE INDEX IF NOT EXISTS idx_challenges_is_active ON challenges(is_active);
+CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
+CREATE INDEX IF NOT EXISTS idx_users_score ON users(score DESC);
+
 -- Function to increment user score
 CREATE OR REPLACE FUNCTION increment_score(user_id UUID, points INTEGER)
 RETURNS VOID AS $$

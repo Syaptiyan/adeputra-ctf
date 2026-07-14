@@ -100,7 +100,7 @@ export default function Register() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/challenges`,
+        redirectTo: `${window.location.origin}/challenges?welcome=true`,
       },
     })
     if (error) {

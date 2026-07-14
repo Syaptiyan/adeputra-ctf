@@ -25,7 +25,7 @@ export default function Profile() {
 
     setUser(user)
 
-    const { data: profileData } = await supabase
+    const { data: profileData, error: profileError } = await supabase
       .from('users')
       .select('*')
       .eq('id', user.id)
@@ -33,6 +33,15 @@ export default function Profile() {
 
     if (profileData) {
       setProfile(profileData)
+    } else if (profileError) {
+      console.error('Profile fetch error:', profileError)
+      // Try to create profile if it doesn't exist
+      const { data: newProfile } = await supabase
+        .from('users')
+        .insert([{ id: user.id, email: user.email, username: user.email?.split('@')[0] || 'user' }])
+        .select()
+        .single()
+      if (newProfile) setProfile(newProfile)
     }
 
     const { data: solvesData } = await supabase
@@ -60,10 +69,10 @@ export default function Profile() {
       <div className="card mb-8">
         <div className="flex items-center gap-6">
           <div className="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center text-3xl font-bold">
-            {profile?.username?.charAt(0).toUpperCase()}
+            {profile?.username?.charAt(0)?.toUpperCase() || '?'}
           </div>
           <div>
-            <h1 className="text-2xl font-bold">{profile?.username}</h1>
+            <h1 className="text-2xl font-bold">{profile?.username || 'Unknown'}</h1>
             <p className="text-gray-400">{user?.email}</p>
             <p className="text-orange-500 font-bold mt-1">{profile?.score || 0} points</p>
           </div>

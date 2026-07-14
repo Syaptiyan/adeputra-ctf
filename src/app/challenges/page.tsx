@@ -18,7 +18,7 @@ export default function Challenges() {
   const fetchChallenges = async () => {
     const { data, error } = await supabase
       .from('challenges')
-      .select('*')
+      .select('id, title, description, category, difficulty, points, author, is_active')
       .eq('is_active', true)
       .order('points', { ascending: true })
 

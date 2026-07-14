@@ -14,20 +14,28 @@ export default function ChallengeDetail() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [solved, setSolved] = useState(false)
   const [showHint, setShowHint] = useState<number[]>([])
+  const [cooldown, setCooldown] = useState(0)
 
   useEffect(() => {
     fetchChallenge()
   }, [id])
 
+  useEffect(() => {
+    if (cooldown > 0) {
+      const timer = setTimeout(() => setCooldown(cooldown - 1), 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [cooldown])
+
   const fetchChallenge = async () => {
     const { data, error } = await supabase
       .from('challenges')
-      .select('*')
+      .select('id, title, description, category, difficulty, points, hints, author, is_active')
       .eq('id', id)
       .single()
 
     if (data) {
-      setChallenge(data)
+      setChallenge(data as any)
       
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
@@ -57,41 +65,38 @@ export default function ChallengeDetail() {
       return
     }
 
-    const { data: submission } = await supabase
-      .from('submissions')
-      .insert([
-        {
-          user_id: user.id,
-          challenge_id: id,
-          flag_submitted: flag,
-          is_correct: flag === challenge?.flag,
-        },
-      ])
-      .select()
-      .single()
+    if (cooldown > 0) {
+      setMessage({ type: 'error', text: `Wait ${cooldown} seconds before trying again` })
+      setSubmitting(false)
+      return
+    }
 
-    if (flag === challenge?.flag) {
-      await supabase
-        .from('solves')
-        .insert([
-          {
-            user_id: user.id,
-            challenge_id: id,
-            points_earned: challenge?.points || 0,
-          },
-        ])
+    // Use server-side validation via RPC
+    const { data: result, error } = await supabase.rpc('check_flag', {
+      p_user_id: user.id,
+      p_challenge_id: id as string,
+      p_flag: flag,
+    })
 
-      await supabase.rpc('increment_score', {
-        user_id: user.id,
-        points: challenge?.points || 0,
-      })
-
-      setMessage({ type: 'success', text: 'Correct flag! Points earned!' })
-      setSolved(true)
-    } else {
-      setMessage({ type: 'error', text: 'Incorrect flag, try again' })
+    if (error) {
+      setMessage({ type: 'error', text: 'Error checking flag. Please try again.' })
+      console.error('Flag check error:', error)
+    } else if (result) {
+      if (result.correct) {
+        setMessage({ type: 'success', text: `${result.message} +${result.points} points!` })
+        setSolved(true)
+      } else {
+        setMessage({ type: 'error', text: result.message })
+        setCooldown(5)
+      }
     }
     setSubmitting(false)
+  }
+
+  const handleShowHint = async (index: number) => {
+    if (!showHint.includes(index)) {
+      setShowHint([...showHint, index])
+    }
   }
 
   const getDifficultyBadge = (difficulty: string) => {
@@ -145,10 +150,10 @@ export default function ChallengeDetail() {
                   <p className="text-gray-300 bg-gray-800 p-3 rounded">{hint}</p>
                 ) : (
                   <button
-                    onClick={() => setShowHint([...showHint, index])}
+                    onClick={() => handleShowHint(index)}
                     className="text-orange-500 hover:underline text-sm"
                   >
-                    Show Hint {index + 1} (-{Math.floor(challenge.points / (challenge.hints.length + 1))} pts)
+                    Show Hint {index + 1}
                   </button>
                 )}
               </div>
@@ -173,10 +178,10 @@ export default function ChallengeDetail() {
                 />
                 <button
                   type="submit"
-                  disabled={submitting}
-                  className="btn-primary"
+                  disabled={submitting || cooldown > 0}
+                  className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? 'Checking...' : 'Submit'}
+                  {submitting ? 'Checking...' : cooldown > 0 ? `Wait ${cooldown}s` : 'Submit'}
                 </button>
               </div>
             </div>

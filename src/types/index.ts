@@ -14,11 +14,12 @@ export interface Challenge {
   category: 'web' | 'crypto' | 'forensics' | 'reverse' | 'osint' | 'misc'
   difficulty: 'easy' | 'medium' | 'hard'
   points: number
-  flag: string
-  hints: string[]
+  flag?: string
+  hints?: string[]
+  files?: string[]
   author: string
   is_active: boolean
-  created_at: string
+  created_at?: string
 }
 
 export interface Submission {
