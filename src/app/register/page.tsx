@@ -23,6 +23,11 @@ export default function Register() {
     const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          username: username,
+        },
+      },
     })
 
     if (authError) {
@@ -32,24 +37,8 @@ export default function Register() {
     }
 
     if (data.user) {
-      const { error: dbError } = await supabase
-        .from('users')
-        .insert([
-          {
-            id: data.user.id,
-            email: email,
-            username: username,
-            role: 'user',
-            score: 0,
-          },
-        ])
-
-      if (dbError) {
-        setError(dbError.message)
-      } else {
-        setSuccess('Registration successful! Please check your email to verify.')
-        setTimeout(() => router.push('/login'), 3000)
-      }
+      setSuccess('Registration successful! Please check your email to verify.')
+      setTimeout(() => router.push('/login'), 3000)
     }
     setLoading(false)
   }
