@@ -62,6 +62,7 @@ ALTER TABLE solves ENABLE ROW LEVEL SECURITY;
 
 -- Users policies
 CREATE POLICY "Users can view all users" ON users FOR SELECT USING (true);
+CREATE POLICY "Users can insert own profile" ON users FOR INSERT WITH CHECK (auth.uid() = id);
 CREATE POLICY "Users can update own profile" ON users FOR UPDATE USING (auth.uid() = id);
 
 -- Challenges policies
@@ -72,11 +73,11 @@ CREATE POLICY "Admins can manage challenges" ON challenges FOR ALL USING (
 
 -- Submissions policies
 CREATE POLICY "Users can view own submissions" ON submissions FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can create submissions" FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can create submissions" ON submissions FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 -- Solves policies
 CREATE POLICY "Anyone can view solves" ON solves FOR SELECT USING (true);
-CREATE POLICY "Users can create solves" FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can create solves" ON solves FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 -- Insert sample challenges
 INSERT INTO challenges (title, description, category, difficulty, points, flag, hints, author) VALUES

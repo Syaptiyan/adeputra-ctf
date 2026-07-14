@@ -11,12 +11,14 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const router = useRouter()
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
+    setSuccess('')
 
     const { data, error: authError } = await supabase.auth.signUp({
       email,
@@ -35,8 +37,8 @@ export default function Register() {
         .insert([
           {
             id: data.user.id,
-            email,
-            username,
+            email: email,
+            username: username,
             role: 'user',
             score: 0,
           },
@@ -45,7 +47,8 @@ export default function Register() {
       if (dbError) {
         setError(dbError.message)
       } else {
-        router.push('/challenges')
+        setSuccess('Registration successful! Please check your email to verify.')
+        setTimeout(() => router.push('/login'), 3000)
       }
     }
     setLoading(false)
@@ -59,6 +62,12 @@ export default function Register() {
         {error && (
           <div className="bg-red-500/20 text-red-400 p-3 rounded mb-4 text-sm">
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="bg-green-500/20 text-green-400 p-3 rounded mb-4 text-sm">
+            {success}
           </div>
         )}
 
