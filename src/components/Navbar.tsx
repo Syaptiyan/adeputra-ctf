@@ -54,6 +54,9 @@ export default function Navbar() {
             <Link href="/leaderboard" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
               Papan Peringkat
             </Link>
+            <Link href="/walkthrough" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
+              Walkthrough
+            </Link>
             {user ? (
               <>
                 <Link href="/profile" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">
@@ -98,6 +101,9 @@ export default function Navbar() {
             </Link>
             <Link href="/leaderboard" className="block text-gray-400 hover:text-white py-2">
               Papan Peringkat
+            </Link>
+            <Link href="/walkthrough" className="block text-gray-400 hover:text-white py-2">
+              Walkthrough
             </Link>
             {user ? (
               <>

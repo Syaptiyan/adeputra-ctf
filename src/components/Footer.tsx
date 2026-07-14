@@ -36,6 +36,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/challenges" className="text-gray-400 hover:text-white transition-colors text-sm">Tantangan</Link></li>
               <li><Link href="/leaderboard" className="text-gray-400 hover:text-white transition-colors text-sm">Papan Peringkat</Link></li>
+              <li><Link href="/walkthrough" className="text-gray-400 hover:text-white transition-colors text-sm">Walkthrough</Link></li>
               {isLoggedIn ? (
                 <li><Link href="/profile" className="text-gray-400 hover:text-white transition-colors text-sm">Profil</Link></li>
               ) : (
