@@ -72,14 +72,14 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-4xl font-bold text-orange-500 tracking-tight">ADE PUTRA</h1>
+            <h1 className="text-4xl font-bold text-orange-500 tracking-tight">APCTF</h1>
             <p className="text-gray-500 text-sm mt-1 font-medium tracking-wider uppercase">Capture The Flag</p>
           </Link>
         </div>
 
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-2xl shadow-black/50">
           <h2 className="text-2xl font-bold text-white mb-1">Selamat Datang Kembali</h2>
-          <p className="text-gray-400 mb-6">Masuk untuk melanjutkan ke ADE PUTRA CTF</p>
+          <p className="text-gray-400 mb-6">Masuk untuk melanjutkan ke APCTF CTF</p>
           
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-xl mb-5 text-sm flex items-start gap-2.5 animate-shake">

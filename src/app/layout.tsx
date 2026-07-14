@@ -6,8 +6,16 @@ import Navbar from '@/components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ADE PUTRA CTF',
-  description: 'Capture The Flag Challenge Platform',
+  title: 'APCTF - Platform Capture The Flag Indonesia',
+  description: 'Platform CTF untuk belajar ethical hacking, exploitasi web, kriptografi, forensik digital. Asah skill keamanan siber kamu!',
+  keywords: 'CTF, Capture The Flag, Cybersecurity, Ethical Hacking, Indonesia, Keamanan Siber, Web Security, Cryptography',
+  authors: [{ name: 'APCTF' }],
+  openGraph: {
+    title: 'APCTF - Platform Capture The Flag Indonesia',
+    description: 'Platform CTF untuk belajar ethical hacking dan keamanan siber',
+    type: 'website',
+    locale: 'id_ID',
+  },
 }
 
 export default function RootLayout({
@@ -16,10 +24,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="id">
-      <body className={`${inter.className} bg-gray-950 text-white min-h-screen`}>
+    <html lang="id" className="dark">
+      <body className={`${inter.className} bg-gray-950 text-white min-h-screen antialiased`}>
         <Navbar />
-        <main className="container mx-auto px-4 py-8">
+        <main>
           {children}
         </main>
       </body>

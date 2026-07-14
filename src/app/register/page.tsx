@@ -128,7 +128,7 @@ export default function Register() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-4xl font-bold text-orange-500 tracking-tight">ADE PUTRA</h1>
+            <h1 className="text-4xl font-bold text-orange-500 tracking-tight">APCTF</h1>
             <p className="text-gray-500 text-sm mt-1 font-medium tracking-wider uppercase">Capture The Flag</p>
           </Link>
         </div>
