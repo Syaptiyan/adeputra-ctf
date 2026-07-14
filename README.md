@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ADE PUTRA CTF
 
-## Getting Started
+Platform Capture The Flag (CTF) untuk belajar keamanan siber secara interaktif.
 
-First, run the development server:
+🌐 **Live:** [adeputractf.vercel.app](https://adeputractf.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Fitur
+
+- 🏁 **10+ Tantangan** - Web, Crypto, Forensics, Reverse, OSINT, Misc
+- 🔐 **Autentikasi** - Email/Password, Google OAuth, GitHub OAuth
+- 🏆 **Papan Peringkat** - Ranking real-time berdasarkan poin
+- 👤 **Profil Pengguna** - Riwayat solve dan statistik
+- 🔑 **Admin Panel** - Kelola tantangan (CRUD)
+- 🌙 **Dark Mode** - UI modern dan responsif
+- 📱 **Mobile Friendly** - Bisa diakses dari HP
+
+## Kategori Tantangan
+
+| Kategori | Deskripsi | Contoh |
+|----------|-----------|--------|
+| **Web** | Exploitasi aplikasi web | SQLi, XSS, SSTI, IDOR |
+| **Crypto** | Kriptanalisis | Caesar, XOR, RSA, Base64 |
+| **Forensics** | Analisis digital | Steganography, metadata |
+| **Reverse** | Reverse engineering | Python bytecode, binary |
+| **OSINT** | Open Source Intelligence | Investigasi media sosial |
+| **Misc** | Lain-lain | Automation, puzzle |
+
+## Tingkat Kesulitan
+
+| Level | Poin | Warna |
+|-------|------|-------|
+| Easy | 100-150 | 🟢 |
+| Medium | 200 | 🟡 |
+| Hard | 300 | 🔴 |
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | Next.js 14 (App Router) |
+| Styling | Tailwind CSS |
+| Backend | Next.js API Routes |
+| Database | Supabase (PostgreSQL) |
+| Auth | Supabase Auth |
+| Hosting | Vercel |
+
+## Struktur Project
+
+```
+src/
+├── app/
+│   ├── page.tsx              # Landing page
+│   ├── layout.tsx            # Root layout
+│   ├── login/page.tsx        # Halaman masuk
+│   ├── register/page.tsx     # Halaman daftar
+│   ├── challenges/
+│   │   ├── page.tsx          # Daftar tantangan
+│   │   └── [id]/page.tsx     # Detail tantangan
+│   ├── leaderboard/page.tsx  # Papan peringkat
+│   ├── profile/page.tsx      # Profil pengguna
+│   └── admin/
+│       ├── page.tsx          # Dashboard admin
+│       └── challenges/       # Kelola tantangan
+├── components/
+│   └── Navbar.tsx            # Navigasi
+├── lib/
+│   └── supabase.ts           # Supabase client
+└── types/
+    └── index.ts              # TypeScript types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+
+- npm/pnpm/yarn
+- Supabase account
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Clone repository
+git clone https://github.com/Syaptiyan/adeputra-ctf.git
+cd adeputra-ctf
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Setup environment variables
+cp .env.example .env.local
+# Edit .env.local dengan credentials Supabase
 
-## Deploy on Vercel
+# Run development server
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+### Database Setup
+
+1. Buka Supabase SQL Editor
+2. Jalankan file `supabase-schema.sql`
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push ke GitHub
+2. Import di [vercel.com](https://vercel.com)
+3. Add environment variables
+4. Deploy!
+
+### Manual
+
+```bash
+# Build
+npm run build
+
+# Start
+npm start
+```
+
+## API Endpoints
+
+| Endpoint | Method | Deskripsi |
+|----------|--------|-----------|
+| `/api/auth/*` | - | Autentikasi (Supabase) |
+| `/api/challenges` | GET | Ambil semua tantangan |
+| `/api/challenges/:id` | GET | Ambil tantangan by ID |
+| `/api/submit` | POST | Submit flag |
+| `/api/leaderboard` | GET | Ambil ranking |
+
+## Kontribusi
+
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Author
+
+**ADE PUTRA** - [GitHub](https://github.com/Syaptiyan)
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Supabase](https://supabase.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vercel](https://vercel.com/)

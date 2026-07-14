@@ -1,0 +1,61 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.0] - 2026-07-14
+
+### Added
+- Landing page dengan desain modern
+- Sistem autentikasi (Register, Login, Logout)
+- OAuth integration (Google & GitHub)
+- Halaman tantangan dengan filter kategori dan kesulitan
+- Halaman detail tantangan dengan submit flag
+- Sistem poin dan papan peringkat
+- Profil pengguna dengan riwayat solve
+- Admin panel untuk kelola tantangan (CRUD)
+- Password visibility toggle
+- Password strength indicator
+- Form validasi (username, email, password)
+- Responsive design (mobile-friendly)
+- Dark mode UI
+- 10+ sample tantangan (Web, Crypto, Forensics, OSINT, Misc)
+- Supabase integration (Database & Auth)
+- Vercel deployment
+- Bahasa Indonesia untuk semua UI
+
+### Security
+- Row Level Security (RLS) pada Supabase
+- Input sanitization
+- Password hashing (bcrypt via Supabase)
+- CSRF protection (built-in Next.js)
+- Rate limiting (Supabase Auth)
+
+### Technical
+- Next.js 14 with App Router
+- TypeScript
+- Tailwind CSS
+- Supabase PostgreSQL
+- Vercel hosting
+
+## [0.1.0] - 2026-07-14
+
+### Added
+- Initial project setup
+- Next.js boilerplate
+- Supabase configuration
+- Basic project structure
+
+---
+
+## Format
+
+### Types
+- **Added** for new features
+- **Changed** for changes in existing functionality
+- **Deprecated** for soon-to-be removed features
+- **Removed** for now removed features
+- **Fixed** for any bug fixes
+- **Security** in case of vulnerabilities
