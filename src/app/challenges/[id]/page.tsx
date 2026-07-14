@@ -5,6 +5,19 @@ import { supabase } from '@/lib/supabase'
 import { useParams } from 'next/navigation'
 import { Challenge } from '@/types'
 
+// Challenge files mapping
+const challengeFiles: Record<string, { file: string; label: string }> = {
+  'Pesawat Kertas': { file: 'pesawat_kertas.txt', label: 'Download pesawat_kertas.txt' },
+  'Jejak Digital': { file: 'suspect_photo.png', label: 'Download suspect_photo.png' },
+  'XOR Rahasia': { file: 'xor_encrypted.txt', label: 'Download xor_encrypted.txt' },
+  'Pesan dalam Botol': { file: 'caesar_cipher.txt', label: 'Download caesar_cipher.txt' },
+  'Mesin Waktu': { file: 'time_machine.pyc', label: 'Download time_machine.pyc' },
+  'File Rahasia': { file: 'secret.bin', label: 'Download secret.bin' },
+  'SQL Injection Blind': { file: 'blind_sqli_simulator.html', label: 'Download simulasi SQLi' },
+}
+
+const GITHUB_RAW = 'https://raw.githubusercontent.com/Syaptiyan/adeputra-ctf/master/challenge-files/'
+
 export default function ChallengeDetail() {
   const { id } = useParams()
   const [challenge, setChallenge] = useState<Challenge | null>(null)
@@ -160,6 +173,23 @@ export default function ChallengeDetail() {
                 )}
               </div>
             ))}
+          </div>
+        )}
+
+        {challengeFiles[challenge.title] && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3">File Tantangan</h3>
+            <a
+              href={`${GITHUB_RAW}${challengeFiles[challenge.title].file}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-green-500/20 hover:bg-green-500/30 text-green-400 px-4 py-2 rounded-lg transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              {challengeFiles[challenge.title].label}
+            </a>
           </div>
         )}
 
