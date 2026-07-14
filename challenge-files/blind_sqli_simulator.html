@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Target Corp</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: #16213e; padding: 2rem; border-radius: 10px; width: 400px; }
+        h1 { text-align: center; margin-bottom: 1rem; color: #e94560; }
+        .info { background: #0f3460; padding: 1rem; border-radius: 5px; margin-bottom: 1rem; }
+        .info p { margin: 0.5rem 0; }
+        .label { color: #a0a0a0; }
+        .value { color: #00ff88; font-family: monospace; }
+        .error { color: #ff4444; background: #440000; padding: 1rem; border-radius: 5px; text-align: center; }
+        .hint { color: #ffa500; font-size: 0.8rem; margin-top: 1rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="info">
+            <p><span class="label">ID:</span> <span class="value" id="user-id">1</span></p>
+            <p><span class="label">Username:</span> <span class="value">admin</span></p>
+            <p><span class="label">Email:</span> <span class="value">admin@target-corp.com</span></p>
+            <p><span class="label">Role:</span> <span class="value" id="role">user</span></p>
+        </div>
+        <div id="result"></div>
+        <p class="hint">URL: /user?id=1 — Coba ubah parameter id...</p>
+        <p class="hint" style="margin-top: 0.5rem;">Petunjuk: Coba id=1 AND 1=1 vs id=1 AND 1=2</p>
+    </div>
+
+    <script>
+        // Simulated SQL Injection behavior
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id') || '1';
+        
+        document.getElementById('user-id').textContent = id;
+        
+        // Simulate boolean-based blind SQLi
+        if (id.includes("'") || id.includes('"')) {
+            document.getElementById('role').textContent = 'ERROR';
+            document.getElementById('role').style.color = '#ff4444';
+        }
+        
+        // Hidden: flag in page source (simulating database leak)
+        const secretFlag = "APCTF{bl1nd_sql1_1s_p41nful}";
+        
+        // If user tries specific SQLi payload, reveal flag
+        if (id.includes("UNION SELECT") && id.includes("password")) {
+            document.getElementById('result').innerHTML = `
+                <div class="info" style="border: 2px solid #00ff88;">
+                    <p><span class="label">Password Hash:</span></p>
+                    <p class="value">${secretFlag}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

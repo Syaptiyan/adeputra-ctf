@@ -1,0 +1,7 @@
+=== PESAN TERENKRIPSI ===
+
+Metode: XOR dengan satu karakter kunci
+Pesan terenkripsi (hex): 19081b0c1e2320682a072a6c306c2b696c076c3f6b3625
+Panjang pesan asli: 23 karakter
+
+Petunjuk: Kunci adalah huruf besar Latin
