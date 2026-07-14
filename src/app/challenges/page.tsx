@@ -1,16 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Challenge } from '@/types'
 
-export default function Challenges() {
+function ChallengesContent() {
+  const searchParams = useSearchParams()
   const [challenges, setChallenges] = useState<Challenge[]>([])
   const [solvedIds, setSolvedIds] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>('all')
-  const [category, setCategory] = useState<string>('all')
+  const [category, setCategory] = useState<string>(searchParams.get('category') || 'all')
 
   useEffect(() => {
     fetchChallenges()
@@ -133,5 +135,13 @@ export default function Challenges() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function Challenges() {
+  return (
+    <Suspense fallback={<div className="text-center py-20">Loading...</div>}>
+      <ChallengesContent />
+    </Suspense>
   )
 }
