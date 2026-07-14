@@ -22,42 +22,56 @@ export default function Leaderboard() {
   }, [])
 
   const fetchLeaderboard = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) setCurrentUser(user.id)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) setCurrentUser(user.id)
 
-    // Get users with scores
-    const { data: users } = await supabase
-      .from('users')
-      .select('id, username, score')
-      .order('score', { ascending: false })
-      .limit(50)
+      // Get users with scores
+      const { data: users, error: usersError } = await supabase
+        .from('users')
+        .select('id, username, score')
+        .order('score', { ascending: false })
+        .limit(50)
 
-    if (users && users.length > 0) {
-      // Get all solves in one query
-      const userIds = users.map(u => u.id)
-      const { data: solves } = await supabase
-        .from('solves')
-        .select('user_id')
-        .in('user_id', userIds)
-
-      // Count solves per user
-      const solveCounts: Record<string, number> = {}
-      if (solves) {
-        solves.forEach(solve => {
-          solveCounts[solve.user_id] = (solveCounts[solve.user_id] || 0) + 1
-        })
+      if (usersError) {
+        console.error('Users query error:', usersError)
+        setLoading(false)
+        return
       }
 
-      // Build leaderboard
-      const entries: LeaderboardEntry[] = users.map((user, index) => ({
-        id: user.id,
-        username: user.username,
-        score: user.score || 0,
-        solves: solveCounts[user.id] || 0,
-        rank: index + 1
-      }))
+      if (users && users.length > 0) {
+        // Get all solves in one query
+        const userIds = users.map(u => u.id)
+        const { data: solves, error: solvesError } = await supabase
+          .from('solves')
+          .select('user_id')
+          .in('user_id', userIds)
 
-      setLeaderboard(entries)
+        if (solvesError) {
+          console.error('Solves query error:', solvesError)
+        }
+
+        // Count solves per user
+        const solveCounts: Record<string, number> = {}
+        if (solves) {
+          solves.forEach(solve => {
+            solveCounts[solve.user_id] = (solveCounts[solve.user_id] || 0) + 1
+          })
+        }
+
+        // Build leaderboard
+        const entries: LeaderboardEntry[] = users.map((user, index) => ({
+          id: user.id,
+          username: user.username,
+          score: user.score || 0,
+          solves: solveCounts[user.id] || 0,
+          rank: index + 1
+        }))
+
+        setLeaderboard(entries)
+      }
+    } catch (err) {
+      console.error('Leaderboard fetch error:', err)
     }
     setLoading(false)
   }
