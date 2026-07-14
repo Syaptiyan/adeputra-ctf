@@ -84,12 +84,12 @@ export default function Leaderboard() {
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-3">Papan Peringkat</h1>
-        <p className="text-gray-400">Top 50 hacker terbaik di APCTF</p>
+        <h1 className="text-3xl md:text-4xl font-bold mb-3">Papan Peringkat</h1>
+        <p className="text-gray-400 text-sm md:text-base">Top 50 hacker terbaik di APCTF</p>
       </div>
 
-      {/* Top 3 Podium */}
-      {getTopThree().length >= 3 && (
+      {/* Top 3 Podium - Only show if 3+ users */}
+      {leaderboard.length >= 3 && (
         <div className="grid grid-cols-3 gap-2 md:gap-4 mb-10">
           {/* 2nd Place */}
           <div className="bg-gray-900 border border-gray-700 rounded-xl md:rounded-2xl p-3 md:p-6 text-center mt-6 md:mt-8">
@@ -141,8 +141,8 @@ export default function Leaderboard() {
         </div>
       )}
 
-      {/* Rest of Leaderboard */}
-      {getRest().length > 0 && (
+      {/* Rest of Leaderboard - Show all if <3 users, or 4+ if >=3 users */}
+      {leaderboard.length > 0 && (
         <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
           {/* Desktop Header */}
           <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-800/50 text-sm font-semibold text-gray-400">
@@ -152,7 +152,7 @@ export default function Leaderboard() {
             <div className="col-span-3 text-right">Solved</div>
           </div>
           
-          {getRest().map((entry) => {
+          {(leaderboard.length >= 3 ? getRest() : leaderboard).map((entry) => {
             const rankBadge = getRankBadge(entry.rank)
             const isCurrentUser = currentUser === entry.id
             
