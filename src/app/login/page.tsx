@@ -162,9 +162,9 @@ export default function Login() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium text-gray-300">Password</label>
-                <button type="button" className="text-sm text-orange-500 hover:text-orange-400 transition-colors">
+                <Link href="/forgot-password" className="text-sm text-orange-500 hover:text-orange-400 transition-colors">
                   Lupa password?
-                </button>
+                </Link>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">

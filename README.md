@@ -1,6 +1,6 @@
-# ADE PUTRA CTF
+# APCTF
 
-Platform Capture The Flag (CTF) untuk belajar keamanan siber secara interaktif.
+Platform Capture The Flag (CTF) Indonesia untuk belajar keamanan siber secara interaktif.
 
 🌐 **Live:** [adeputractf.vercel.app](https://adeputractf.vercel.app)
 
@@ -8,11 +8,15 @@ Platform Capture The Flag (CTF) untuk belajar keamanan siber secara interaktif.
 
 - 🏁 **10+ Tantangan** - Web, Crypto, Forensics, Reverse, OSINT, Misc
 - 🔐 **Autentikasi** - Email/Password, Google OAuth, GitHub OAuth
+- 📧 **Verifikasi Email** - User wajib verifikasi email sebelum bermain
+- 🔑 **Reset Password** - Lupa password? Reset via email
+- ✉️ **Ubah Email** - Ganti email dengan verifikasi
 - 🏆 **Papan Peringkat** - Ranking real-time berdasarkan poin
 - 👤 **Profil Pengguna** - Riwayat solve dan statistik
-- 🔑 **Admin Panel** - Kelola tantangan (CRUD)
+- 🔐 **Admin Panel** - Kelola tantangan (CRUD)
 - 🌙 **Dark Mode** - UI modern dan responsif
 - 📱 **Mobile Friendly** - Bisa diakses dari HP
+- 🇮🇩 **Bahasa Indonesia** - Semua UI menggunakan Bahasa Indonesia
 
 ## Kategori Tantangan
 
@@ -53,6 +57,14 @@ src/
 │   ├── layout.tsx            # Root layout
 │   ├── login/page.tsx        # Halaman masuk
 │   ├── register/page.tsx     # Halaman daftar
+│   ├── forgot-password/      # Lupa password
+│   ├── reset-password/       # Reset password
+│   ├── change-email/         # Ubah email
+│   ├── unverified/           # Email belum verifikasi
+│   ├── about/                # Tentang kami
+│   ├── terms/                # Syarat & ketentuan
+│   ├── privacy/              # Kebijakan privasi
+│   ├── contact/              # Kontak
 │   ├── challenges/
 │   │   ├── page.tsx          # Daftar tantangan
 │   │   └── [id]/page.tsx     # Detail tantangan
@@ -65,6 +77,7 @@ src/
 │   └── Navbar.tsx            # Navigasi
 ├── lib/
 │   └── supabase.ts           # Supabase client
+├── middleware.ts              # Route protection
 └── types/
     └── index.ts              # TypeScript types
 ```
@@ -107,6 +120,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 1. Buka Supabase SQL Editor
 2. Jalankan file `supabase-schema.sql`
 
+### Supabase Configuration
+
+1. **Site URL:** `https://your-domain.vercel.app`
+2. **Redirect URLs:** `https://your-domain.vercel.app/**`
+3. **Email Templates:** (Opsional, butuh Pro plan)
+
 ## Deployment
 
 ### Vercel (Recommended)
@@ -126,15 +145,16 @@ npm run build
 npm start
 ```
 
-## API Endpoints
+## Peran Pengguna
 
-| Endpoint | Method | Deskripsi |
-|----------|--------|-----------|
-| `/api/auth/*` | - | Autentikasi (Supabase) |
-| `/api/challenges` | GET | Ambil semua tantangan |
-| `/api/challenges/:id` | GET | Ambil tantangan by ID |
-| `/api/submit` | POST | Submit flag |
-| `/api/leaderboard` | GET | Ambil ranking |
+| Fitur | User Biasa | Admin |
+|-------|------------|-------|
+| Lihat tantangan | ✅ | ✅ |
+| Submit flag | ✅ | ✅ |
+| Lihat leaderboard | ✅ | ✅ |
+| Lihat profil | ✅ | ✅ |
+| Kelola tantangan | ❌ | ✅ |
+| Akses admin panel | ❌ | ✅ |
 
 ## Kontribusi
 
@@ -150,7 +170,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Author
 
-**ADE PUTRA** - [GitHub](https://github.com/Syaptiyan)
+**APCTF** - [GitHub](https://github.com/Syaptiyan)
 
 ## Acknowledgments
 

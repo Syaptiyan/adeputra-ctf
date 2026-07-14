@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-07-14
+
+### Added
+- Halaman Lupa Password (/forgot-password)
+- Halaman Reset Password (/reset-password)
+- Halaman Ubah Email (/change-email)
+- Halaman Verifikasi Email (/unverified)
+- Halaman Tentang Kami (/about)
+- Halaman Syarat & Ketentuan (/terms)
+- Halaman Kebijakan Privasi (/privacy)
+- Halaman Kontak (/contact)
+- Middleware untuk proteksi halaman
+- Email verification wajib sebelum bermain
+- Resend email verification dengan cooldown
+
+### Changed
+- Rebrand dari "ADE PUTRA CTF" ke "APCTF"
+- Landing page redesign dengan UI/UX modern
+- Footer dengan link yang berfungsi
+- Navbar dengan efek scroll transparan
+- Semua teks menggunakan Bahasa Indonesia
+
+### Fixed
+- Link "Lupa password?" sekarang berfungsi
+- Redirect setelah login
+- Email verification redirect ke halaman yang benar
+
+### Security
+- Middleware protection untuk halaman terproteksi
+- Email verification wajib untuk akses tantangan
+- Reset password via email
+
 ## [1.0.0] - 2026-07-14
 
 ### Added
