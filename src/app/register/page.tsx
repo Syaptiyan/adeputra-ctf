@@ -89,8 +89,8 @@ export default function Register() {
         setError(authError.message)
       }
     } else if (data.user) {
-      setSuccess('Akun berhasil dibuat! Mengalihkan ke halaman masuk...')
-      setTimeout(() => router.push('/login'), 2000)
+      setSuccess('Akun berhasil dibuat! Silakan cek email kamu untuk verifikasi sebelum bisa masuk.')
+      setTimeout(() => router.push('/login'), 3000)
     }
     setLoading(false)
   }

@@ -42,11 +42,23 @@ export default function Login() {
       if (error.message.includes('Invalid login credentials')) {
         setError('Email atau password salah')
       } else if (error.message.includes('Email not confirmed')) {
-        setError('Harap verifikasi email kamu terlebih dahulu')
+        // Sign in to get user data, then redirect to unverified page
+        await supabase.auth.signInWithPassword({
+          email: email.trim().toLowerCase(),
+          password,
+        })
+        router.push('/unverified')
+        return
       } else {
         setError(error.message)
       }
     } else {
+      // Check if email is verified
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user && !user.email_confirmed_at) {
+        router.push('/unverified')
+        return
+      }
       router.push('/challenges')
       router.refresh()
     }
